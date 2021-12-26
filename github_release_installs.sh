@@ -111,6 +111,8 @@ cd "$INSTALL_DIR"
 for i in "${FILES_TO_EXTRACT[@]}";
 do
 	extract "$i"
+	sync
+	rm "$i"
 	echo "$i"
 done
 
