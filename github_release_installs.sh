@@ -79,7 +79,9 @@ fi
 INSTALL_DIR="/opt"
 
 ORGINAL_DIR=$(pwd)
-# https://stackoverflow.com/questions/23356779/how-can-i-store-the-find-command-results-as-an-array-in-bash/54561526#54561526 readarray -d '' RELEASE_FILES < <(find "$1" -type f -print0)
+# https://stackoverflow.com/questions/23356779/how-can-i-store-the-find-command-results-as-an-array-in-bash/54561526#54561526
+readarray -d '' RELEASE_FILES < <(find "$1" -type f -print0)
+
 FILES_TO_EXTRACT=()
 
 for i in "${RELEASE_FILES[@]}";
