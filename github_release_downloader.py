@@ -79,6 +79,10 @@ def download_media(url, destination=None, session=None):
     else:
         destination = basename
 
+    # skip download if it already exists
+    if os.path.isfile(destination) is True:
+        return destination
+
     os.system(f"curl -L '{url}' -o '{destination}'")
     # s = session if session is not None else requests.session()
     # r = s.get(url, stream=True)
