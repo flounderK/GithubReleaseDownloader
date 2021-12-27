@@ -18,20 +18,20 @@ extract() {
         fi
 
         case $i in
-			*.tgz) c=(bsdtar -k xvf);;
-			*.tlz) c=(bsdtar -k xvf);;
-			*.txz) c=(bsdtar -k xvf);;
-			*.tb2) c=(bsdtar -k xvf);;
-			*.tbz) c=(bsdtar -k xvf);;
-			*.tbz2) c=(bsdtar -k xvf);;
-			*.taz) c=(bsdtar -k xvf);;
-			*.tar) c=(bsdtar -k xvf);;
-			*.tar.Z) c=(bsdtar -k xvf);;
-			*.tar.bz) c=(bsdtar -k xvf);;
-			*.tar.bz2) c=(bsdtar -k xvf);;
-			*.tar.gz) c=(bsdtar -k xvf);;
-			*.tar.lzma) c=(bsdtar -k xvf);;
-			*.tar.xz) c=(bsdtar -k xvf);;
+			*.tgz) c=(bsdtar xvkf);;
+			*.tlz) c=(bsdtar xvkf);;
+			*.txz) c=(bsdtar xvkf);;
+			*.tb2) c=(bsdtar xvkf);;
+			*.tbz) c=(bsdtar xvkf);;
+			*.tbz2) c=(bsdtar xvkf);;
+			*.taz) c=(bsdtar xvkf);;
+			*.tar) c=(bsdtar xvkf);;
+			*.tar.Z) c=(bsdtar xvkf);;
+			*.tar.bz) c=(bsdtar xvkf);;
+			*.tar.bz2) c=(bsdtar xvkf);;
+			*.tar.gz) c=(bsdtar xvkf);;
+			*.tar.lzma) c=(bsdtar xvkf);;
+			*.tar.xz) c=(bsdtar xvkf);;
             *.7z)  c=(7z x);;  # requires handling of overwrite
             *.Z)   c=(uncompress);; # requires handling of overwrite
             *.bz2) c=(bunzip2);;
