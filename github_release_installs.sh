@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # from https://wiki.archlinux.org/title/Bash/Functions#Extract
-# will fail if extglob is not enabled
+# will possibly fail if extglob is not enabled
+# TODO: disable overwrite on all
 extract() {
     local c e i
 
@@ -17,28 +18,28 @@ extract() {
         fi
 
         case $i in
-			*.tgz) c=(bsdtar xvf);;
-			*.tlz) c=(bsdtar xvf);;
-			*.txz) c=(bsdtar xvf);;
-			*.tb2) c=(bsdtar xvf);;
-			*.tbz) c=(bsdtar xvf);;
-			*.tbz2) c=(bsdtar xvf);;
-			*.taz) c=(bsdtar xvf);;
-			*.tar) c=(bsdtar xvf);;
-			*.tar.Z) c=(bsdtar xvf);;
-			*.tar.bz) c=(bsdtar xvf);;
-			*.tar.bz2) c=(bsdtar xvf);;
-			*.tar.gz) c=(bsdtar xvf);;
-			*.tar.lzma) c=(bsdtar xvf);;
-			*.tar.xz) c=(bsdtar xvf);;
-            *.7z)  c=(7z x);;
-            *.Z)   c=(uncompress);;
+			*.tgz) c=(bsdtar -k xvf);;
+			*.tlz) c=(bsdtar -k xvf);;
+			*.txz) c=(bsdtar -k xvf);;
+			*.tb2) c=(bsdtar -k xvf);;
+			*.tbz) c=(bsdtar -k xvf);;
+			*.tbz2) c=(bsdtar -k xvf);;
+			*.taz) c=(bsdtar -k xvf);;
+			*.tar) c=(bsdtar -k xvf);;
+			*.tar.Z) c=(bsdtar -k xvf);;
+			*.tar.bz) c=(bsdtar -k xvf);;
+			*.tar.bz2) c=(bsdtar -k xvf);;
+			*.tar.gz) c=(bsdtar -k xvf);;
+			*.tar.lzma) c=(bsdtar -k xvf);;
+			*.tar.xz) c=(bsdtar -k xvf);;
+            *.7z)  c=(7z x);;  # requires handling of overwrite
+            *.Z)   c=(uncompress);; # requires handling of overwrite
             *.bz2) c=(bunzip2);;
             *.exe) c=(cabextract);;
-            *.gz)  c=(gunzip);;
-            *.rar) c=(unrar x);;
+            *.gz)  c=(gunzip);; # requires handling of overwrite
+            *.rar) c=(unrar x);; # requires handling of overwrite
             *.xz)  c=(unxz);;
-            *.zip) c=(unzip);;
+            *.zip) c=(unzip -n);;
             *.zst) c=(unzstd);;
             *)     echo "$0: unrecognized file extension: \`$i'" >&2
                    continue;;
@@ -93,7 +94,7 @@ do
 			continue
 			;;
 		*.deb)
-			dpkg -i "$i"
+			command -v dpkg >/dev/null && dpkg -i "$i"
 			continue
 			;;
 		*)
