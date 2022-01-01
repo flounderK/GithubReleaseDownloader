@@ -16,7 +16,8 @@ extract() {
             echo "$0: file is unreadable: \`$i'" >&2
             continue
         fi
-
+		# basically just want no-overwrite options for all
+		# of these commands
         case $i in
 			*.tgz) c=(bsdtar xvkf);;
 			*.tlz) c=(bsdtar xvkf);;
@@ -66,8 +67,9 @@ handle_appimage() {
 
 
 if [ $# -lt 1 ]; then
-	echo "Usage: $0 <directory>"
-	echo "where <directory> is a directory containing downloaded github release files"
+	echo "Usage: $0 <directory|filepath>"
+	echo "where <directory|filepath> is either a directory containing downloaded github release files"
+	echo "or a filepath to a downloaded github release file"
 	exit 0
 
 fi
@@ -80,8 +82,16 @@ fi
 INSTALL_DIR="/opt"
 
 ORGINAL_DIR=$(pwd)
+
 # https://stackoverflow.com/questions/23356779/how-can-i-store-the-find-command-results-as-an-array-in-bash/54561526#54561526
-readarray -d '' RELEASE_FILES < <(find "$1" -type f -print0)
+if [ ! -d "$1" ]; then
+	RELEASE_FILES=("$1")
+	# file was passed in
+	# readarray -d '' RELEASE_FILES < <(find "$()" -type f -print0)
+else
+	readarray -d '' RELEASE_FILES < <(find "$1" -type f -print0)
+fi
+
 
 FILES_TO_EXTRACT=()
 
