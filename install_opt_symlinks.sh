@@ -31,6 +31,11 @@ SORTED_DIRS=$(find "$INSTALL_DIR" -maxdepth 1 -mindepth 1 -type d -exec ls -1dt 
 # 2 is linkname
 TARGET=$(echo "$SORTED_DIRS" | grep --color=never -i "$1" | head -n1)
 LINK="$INSTALL_DIR/$2"
+if [ -L "$LINK" ]; then
+	echo "Found old link, removing it"
+	rm "$LINK"
+fi
+
 echo "target $TARGET"
 echo "link $LINK"
 ln -f -s "$TARGET" "$LINK"
