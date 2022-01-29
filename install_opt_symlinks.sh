@@ -25,7 +25,8 @@ fi
 
 
 INSTALL_DIR="/opt"
-SORTED_DIRS=$(find "$INSTALL_DIR" -maxdepth 1 -mindepth 1 -type d -exec ls -1dt "{}" \;)
+# find dirs in install dir and sort by date
+SORTED_DIRS=$(find "$INSTALL_DIR" -maxdepth 1 -mindepth 1 -type d -printf "%T+ %p\n" | sort -r | cut -d ' ' -f2)
 
 # 1 is match
 # 2 is linkname
