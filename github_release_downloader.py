@@ -43,29 +43,17 @@ def get_matching_asset_urls(assets, match=None):
     return [i for i in urls if re.search(match, i) is not None]
 
 
-def get_latest_asset_url(slug, match=None, session=None):
+def get_latest_asset_urls(slug, match=None, session=None):
     assets = get_assets(slug, session)
 
     if not assets:
         raise Exception(f"Release for {slug} has no assets")
 
-    if len(assets) == 1:
-        return assets[0]['browser_download_url']
-
-    if len(assets) > 1 and match is None:
-        raise Exception(f"There are {len(assets)} assets and no "
-                        "match string, need a string to match "
-                        "to know which to download")
-
     matched_assets = get_matching_asset_urls(assets, match)
     if not matched_assets:
         raise Exception(f"{slug} had no matching assets")
 
-    if len(matched_assets) > 1:
-        log.warning("More than one matching asset for %s "
-                    "defaulting to first", slug)
-
-    return matched_assets[0]
+    return matched_assets
 
 
 def download_media(url, destination=None, session=None):
@@ -142,10 +130,12 @@ def handle_single_slug_arg(project_slug, match=None, destination=None,
         urls = get_matching_asset_urls(assets, match)
         return urls
 
+    filenames = []
     # normal download
-    url = get_latest_asset_url(project_slug, match)
-    filename = download_media(url, destination)
-    return filename
+    urls = get_latest_asset_urls(project_slug, match)
+    for url in urls:
+        filenames.append(download_media(url, destination))
+    return filenames
 
 
 def handle_json_file(args):
@@ -176,8 +166,9 @@ def handle_json_file(args):
             kwargs['destination'] = d
 
     for kwargs in valid_kwargs:
-        ret = handle_single_slug_arg(**kwargs)
-        print(ret)
+        filenames = handle_single_slug_arg(**kwargs)
+        for i in filenames:
+            print(i)
 
 
 if __name__ == "__main__":
