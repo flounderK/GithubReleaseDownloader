@@ -19,20 +19,20 @@ extract() {
 		# basically just want no-overwrite options for all
 		# of these commands
         case $i in
-			*.tgz) c=(bsdtar xvkf);;
-			*.tlz) c=(bsdtar xvkf);;
-			*.txz) c=(bsdtar xvkf);;
-			*.tb2) c=(bsdtar xvkf);;
-			*.tbz) c=(bsdtar xvkf);;
-			*.tbz2) c=(bsdtar xvkf);;
-			*.taz) c=(bsdtar xvkf);;
-			*.tar) c=(bsdtar xvkf);;
-			*.tar.Z) c=(bsdtar xvkf);;
-			*.tar.bz) c=(bsdtar xvkf);;
-			*.tar.bz2) c=(bsdtar xvkf);;
-			*.tar.gz) c=(bsdtar xvkf);;
-			*.tar.lzma) c=(bsdtar xvkf);;
-			*.tar.xz) c=(bsdtar xvkf);;
+			*.tgz) c=(bsdtar xkf);;
+			*.tlz) c=(bsdtar xkf);;
+			*.txz) c=(bsdtar xkf);;
+			*.tb2) c=(bsdtar xkf);;
+			*.tbz) c=(bsdtar xkf);;
+			*.tbz2) c=(bsdtar xkf);;
+			*.taz) c=(bsdtar xkf);;
+			*.tar) c=(bsdtar xkf);;
+			*.tar.Z) c=(bsdtar xkf);;
+			*.tar.bz) c=(bsdtar xkf);;
+			*.tar.bz2) c=(bsdtar xkf);;
+			*.tar.gz) c=(bsdtar xkf);;
+			*.tar.lzma) c=(bsdtar xkf);;
+			*.tar.xz) c=(bsdtar xkf);;
             *.7z)  c=(7z x);;  # requires handling of overwrite
             *.Z)   c=(uncompress);; # requires handling of overwrite
             *.bz2) c=(bunzip2);;
